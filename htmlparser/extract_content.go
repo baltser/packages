@@ -3,7 +3,7 @@ package htmlparser
 import "golang.org/x/net/html"
 
 func (p *DefaultHTMLParser) ExtractContent() []string {
-	var newsTexts []string
+	var textContent []string
 	var inRubric bool
 
 	p.forEachNode(p.RootNode, func(n *html.Node) {
@@ -16,8 +16,8 @@ func (p *DefaultHTMLParser) ExtractContent() []string {
 		}
 		if inRubric && n.Type == html.ElementNode && n.Data == *p.LastChild {
 			text := p.text(n)
-			newsTexts = append(newsTexts, text)
+			textContent = append(textContent, text)
 		}
 	})
-	return newsTexts
+	return textContent
 }
